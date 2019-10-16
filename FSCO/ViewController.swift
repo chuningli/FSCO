@@ -65,11 +65,25 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             vc?.selectedApps = appsSelected
             vc?.apps = apps
         }
+        if segue.destination is TableScreenController
+        {
+            let vc = segue.destination as? TableScreenController
+            var inputTexts = [String]()
+            var inputImages = [UIImage]()
+            for selectedApp in self.appsSelected{
+                inputTexts.append(selectedApp.name)
+                inputImages.append(selectedApp.img)
+            }
+            vc?.inputTexts = inputTexts
+            vc?.inputImages = inputImages
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.appsSelected.count
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identify: String = "TableCell"
@@ -90,11 +104,14 @@ class ViewController: UIViewController,UISearchBarDelegate, UICollectionViewDele
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
+    
     var search : Bool = false
     var result = [app]()
-    var selectedApps = [app]()
-    var searchSelectedApps = [app]()
-//    var selectionIndexPaths = [IndexPath]()
+    var selectedApps = [app](){
+        didSet{
+            self.selectionText.text = "\(selectedApps.count) apps selected"
+        }
+    }
     var apps = [
         app(name : "FaceBook", image : "Apple", img : UIImage(named: "facebook"), isSelected: false),
         app(name : "Instagram", image : "Apple", img : UIImage(named: "instagram"), isSelected: false),
@@ -139,30 +156,31 @@ class ViewController: UIViewController,UISearchBarDelegate, UICollectionViewDele
         self.searchBar.placeholder = "search"
         
         //button style
-        let topColor = UIColor(red: 0x5a/255, green:0x93/255, blue: 0x67/255, alpha:1)
-        let bottomColor = UIColor(red: 92/255, green:171/255, blue: 125/255, alpha:1)
-        let gradientColors = [topColor.cgColor, bottomColor.cgColor]
+//        let topColor = UIColor(red: 0x5a/255, green:0x93/255, blue: 0x67/255, alpha:1)
+//        let bottomColor = UIColor(red: 92/255, green:171/255, blue: 125/255, alpha:1)
+//        let gradientColors = [topColor.cgColor, bottomColor.cgColor]
+//
+//        let gradientLocation:[NSNumber] = [0.0,1.0]
+//        let gradientLayer = CAGradientLayer()
+//        
+//        gradientLayer.colors = gradientColors
+//        gradientLayer.locations = gradientLocation
+//        gradientLayer.startPoint = CGPoint(x : 0, y : 0)
+//        gradientLayer.endPoint = CGPoint(x : 1, y : 0)
+//        gradientLayer.frame.size = startButton.frame.size
+//        gradientLayer.cornerRadius = 8.0
         
-        let gradientLocation:[NSNumber] = [0.0,1.0]
-        let gradientLayer = CAGradientLayer()
-        
-        gradientLayer.colors = gradientColors
-        gradientLayer.locations = gradientLocation
-        gradientLayer.startPoint = CGPoint(x : 0, y : 0)
-        gradientLayer.endPoint = CGPoint(x : 1, y : 0)
-        gradientLayer.frame.size = startButton.frame.size
-        gradientLayer.cornerRadius = 8.0
-        
-        startButton.layer.insertSublayer(gradientLayer, at: 0)
-        startButton.layer.cornerRadius = 8.0
-        startButton.layer.shadowColor = UIColor.black.cgColor
-        startButton.layer.shadowOpacity = 0.6
-        startButton.layer.shadowRadius = 3
-        startButton.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+//        startButton.layer.insertSublayer(gradientLayer, at: 0)
+//        startButton.layer.cornerRadius = 8.0
+//        startButton.layer.shadowColor = UIColor.black.cgColor
+//        startButton.layer.shadowOpacity = 0.6
+//        startButton.layer.shadowRadius = 3
+//        startButton.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
        
         self.collectionView.flashScrollIndicators()
         self.collectionView.allowsMultipleSelection = true
         self.collectionView.reloadData()
+        self.selectionText.text = "select apps"
 
 //        for indexPath in selectionIndexPaths{
 //            self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
@@ -194,6 +212,18 @@ class ViewController: UIViewController,UISearchBarDelegate, UICollectionViewDele
             let vc = segue.destination as? SecondViewController
             vc?.appsSelected = selectedApps
             vc?.apps = apps
+        }
+        if segue.destination is TableScreenController
+        {
+            let vc = segue.destination as? TableScreenController
+            var inputTexts = [String]()
+            var inputImages = [UIImage]()
+            for selectedApp in self.selectedApps{
+                inputTexts.append(selectedApp.name)
+                inputImages.append(selectedApp.img)
+            }
+            vc?.inputTexts = inputTexts
+            vc?.inputImages = inputImages
         }
     }
 

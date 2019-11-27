@@ -12,6 +12,7 @@ class TableScreenController: UIViewController {
     
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var FSCO: UILabel!
+    @IBOutlet weak var sum: UILabel!
     
     @IBOutlet weak var backButton: UIButton!
     
@@ -31,7 +32,13 @@ class TableScreenController: UIViewController {
     @IBAction func doneButtonTapped(_ sender: Any) {
         // Create a UIAlertController object, you should provide title, alert message and dialog stype parameter.
         let exit = inputTexts.count > 0
-        let message = exit ? "You are all set! \n start session by closing this app" : "Please select apps at previous page!"
+        var time = 0
+        for date in inputDates{
+            let calendar = Calendar.current
+            let minutes = calendar.component(.minute, from: date)
+            time += minutes
+        }
+        let message = exit ? "Total time: \(time) minutes \n start session by closing this app" : "Please select apps at previous page!"
         let alertController:UIAlertController = UIAlertController(title: "Message", message: message,  preferredStyle: UIAlertController.Style.alert)
         
         // Create a UIAlertAction object, this object will add a button at alert dialog bottom, the button text is OK, when click it just close the alert dialog.
@@ -58,6 +65,10 @@ class TableScreenController: UIViewController {
     
     func addInitailValues() {
         inputDates = Array(repeating: Calendar.current.date(bySettingHour: 0, minute: 5, second: 0, of: Date())!, count: inputTexts.count)
+        sum.text = "Total time: " + String(5 * inputDates.count) + " minutes"
+        if(5 * inputDates.count > 30){
+            sum.textColor = UIColor.red
+        }
     }
     
     func indexPathToInsertDatePicker(indexPath: IndexPath) -> IndexPath {
@@ -128,6 +139,16 @@ extension TableScreenController: DatePickerDelegate {
     func didChangeDate(date: Date, indexPath: IndexPath) {
         inputDates[indexPath.row] = date
         tableView.reloadRows(at: [indexPath], with: .none)
+        var time = 0
+        for date in inputDates{
+            let calendar = Calendar.current
+            let minutes = calendar.component(.minute, from: date)
+            time += minutes
+        }
+        sum.text = "Total time: " + String(time) + " minutes"
+        if(time > 30){
+            sum.textColor = UIColor.red
+        }
     }
     
 }

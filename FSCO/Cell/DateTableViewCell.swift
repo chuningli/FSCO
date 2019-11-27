@@ -27,6 +27,17 @@ class DateTableViewCell: UITableViewCell {
     
     @IBOutlet weak var appIcon: UIImageView!
     
+    @IBOutlet weak var appSwitch: UISwitch!
+    
+    
+    @IBAction func switchClicked(_ sender: Any) {
+        if appSwitch.isOn {
+            appSwitch.setOn(false, animated:true)
+        } else {
+            appSwitch.setOn(true, animated:true)
+        }
+    }
+    
     // Reuser identifier
     class func reuseIdentifier() -> String {
         return "DateTableViewCellIdentifier"

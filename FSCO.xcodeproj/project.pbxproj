@@ -99,8 +99,7 @@
 				8A1D3F522356BC390049DEF0 /* DatePickerTableViewCell.xib */,
 				8A1D3F532356BC390049DEF0 /* DateTableViewCell.xib */,
 			);
-			name = Xib;
-			path = "../../InlineDatePicker-master/InlineDatePicker/Xib";
+			path = Xib;
 			sourceTree = "<group>";
 		};
 		8AC17FDC2352E4F6004BC88E = {

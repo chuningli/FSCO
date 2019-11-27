@@ -99,7 +99,6 @@ class ViewController: UIViewController,UISearchBarDelegate, UICollectionViewDele
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    @IBOutlet weak var selectionText: UILabel!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -107,17 +106,29 @@ class ViewController: UIViewController,UISearchBarDelegate, UICollectionViewDele
     
     var search : Bool = false
     var result = [app]()
-    var selectedApps = [app](){
-        didSet{
-            self.selectionText.text = "\(selectedApps.count) apps selected"
-        }
-    }
+    var selectedApps = [app]()
+//    {
+//        didSet{
+//            self.selectionText.text = "\(selectedApps.count) apps selected"
+//        }
+////    }
     var apps = [
         app(name : "FaceBook", image : "Apple", img : UIImage(named: "facebook"), isSelected: false),
-        app(name : "Instagram", image : "Apple", img : UIImage(named: "instagram"), isSelected: false),
         app(name : "Chrome", image : "Apple", img : UIImage(named: "chrome"), isSelected: false),
+        app(name : "Instagram", image : "Apple", img : UIImage(named: "instagram"), isSelected: false),
         app(name : "Google Maps", image : "Apple", img : UIImage(named: "google"), isSelected: false),
+        app(name : "Spotify", image : "Apple", img : UIImage(named: "spotify"), isSelected: false),
+        app(name : "Messenger", image : "Apple", img : UIImage(named: "messenger"), isSelected: false),
+        app(name : "WeChat", image : "Apple", img : UIImage(named: "wechat"), isSelected: false),
+        app(name : "Gmail", image : "Apple", img : UIImage(named: "gmail"), isSelected: false),
+        app(name : "Outlook", image : "Apple", img : UIImage(named: "outlook"), isSelected: false),
         app(name : "Twitter", image : "Apple", img : UIImage(named: "twitter"), isSelected: false),
+        app(name : "YouTube", image : "Apple", img : UIImage(named: "youtube"), isSelected: false),
+        app(name : "Netflix", image : "Apple", img : UIImage(named: "netflix"), isSelected: false),
+        app(name : "Weibo", image : "Apple", img : UIImage(named: "weibo"), isSelected: false),
+        app(name : "Airbnb", image : "Apple", img : UIImage(named: "airbnb"), isSelected: false),
+        app(name : "Evernote", image : "Apple", img : UIImage(named: "evernote"), isSelected: false),
+
     ]
 //
 //    var selectedAppNames: [String]?{
@@ -180,7 +191,6 @@ class ViewController: UIViewController,UISearchBarDelegate, UICollectionViewDele
         self.collectionView.flashScrollIndicators()
         self.collectionView.allowsMultipleSelection = true
         self.collectionView.reloadData()
-        self.selectionText.text = "select apps"
 
 //        for indexPath in selectionIndexPaths{
 //            self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
